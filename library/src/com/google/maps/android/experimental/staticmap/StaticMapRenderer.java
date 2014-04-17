@@ -22,11 +22,14 @@ class StaticMapRenderer implements GoogleMap.OnMapLoadedCallback, GoogleMap.Snap
     }
 
     public void render(StaticMapView staticMapView, GoogleMap.SnapshotReadyCallback callback) {
-        mStaticMapView = staticMapView;
-        StaticMapOptions options = staticMapView.getOptions();
+        if (mBusy) {
+            throw new IllegalStateException("Already rendering a map. Something went wrong.");
+        }
         mBusy = true;
+        mStaticMapView = staticMapView;
         mCallback = callback;
         staticMapView.setMapView(mMapView);
+        StaticMapOptions options = staticMapView.getOptions();
         mMap = mMapView.getMap();
         mMap.clear();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(options.getCameraPosition()));
