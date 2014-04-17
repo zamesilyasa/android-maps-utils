@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class StaticMapOptions {
     private CameraPosition mCameraPosition;
-    private ArrayList<MarkerOptions> mMarkers;
+    private ArrayList<MarkerOptions> mMarkers = new ArrayList<MarkerOptions>();
 
     public CameraPosition getCameraPosition() {
         return mCameraPosition;

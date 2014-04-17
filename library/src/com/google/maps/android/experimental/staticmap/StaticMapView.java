@@ -31,13 +31,16 @@ public class StaticMapView extends FrameLayout {
 
     private void init() {
         mImageView = new ImageView(getContext());
+        addView(mImageView, 0);
         reset();
     }
 
     public void reset() {
         mOptions = null;
         // TODO: set the placeholder bitmap for the image view
-        mManager.remove(this);
+        if (mManager != null) {
+            mManager.remove(this);
+        }
     }
 
     public void setManager(StaticMapManager manager) {
@@ -67,10 +70,11 @@ public class StaticMapView extends FrameLayout {
         mMapView.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
-        addView(mMapView, 0);
+        addView(mMapView, 1);
     }
 
     void setBitmap(Bitmap bitmap) {
         mImageView.setImageBitmap(bitmap);
+        removeViewAt(1);
     }
 }

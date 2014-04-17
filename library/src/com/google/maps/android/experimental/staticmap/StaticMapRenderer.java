@@ -2,6 +2,7 @@ package com.google.maps.android.experimental.staticmap;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,6 +19,8 @@ class StaticMapRenderer implements GoogleMap.OnMapLoadedCallback, GoogleMap.Snap
 
     public StaticMapRenderer(Context context, StaticMapManager staticMapManager) {
         mMapView = new MapView(context);
+        mMapView.onCreate(null);
+        mMapView.onResume();
         MapsInitializer.initialize(context); // TODO: check return value?
     }
 
@@ -69,6 +72,9 @@ class StaticMapRenderer implements GoogleMap.OnMapLoadedCallback, GoogleMap.Snap
      * Cancels the current render.
      */
     public void stopRendering() {
+        // TODO: handle these?
+//        mMapView.onPause();
+//        mMapView.onDestroy();
         mBusy = false;
         mStaticMapView = null;
         mCallback = null;
