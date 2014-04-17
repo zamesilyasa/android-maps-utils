@@ -14,6 +14,7 @@ class StaticMapRenderer implements GoogleMap.OnMapLoadedCallback, GoogleMap.Snap
     private GoogleMap mMap;
     private GoogleMap.SnapshotReadyCallback mCallback;
     private boolean mBusy;
+    private StaticMapView mStaticMapView;
 
     public StaticMapRenderer(Context context, StaticMapManager staticMapManager) {
         mMapView = new MapView(context);
@@ -21,6 +22,7 @@ class StaticMapRenderer implements GoogleMap.OnMapLoadedCallback, GoogleMap.Snap
     }
 
     public void render(StaticMapView staticMapView, GoogleMap.SnapshotReadyCallback callback) {
+        mStaticMapView = staticMapView;
         StaticMapOptions options = staticMapView.getOptions();
         mBusy = true;
         mCallback = callback;
@@ -47,5 +49,25 @@ class StaticMapRenderer implements GoogleMap.OnMapLoadedCallback, GoogleMap.Snap
 
     public boolean isBusy() {
         return mBusy;
+    }
+
+    /**
+     * Cancels rendering of a particular view.
+     * If the view does not match, then this is a no-op.
+     */
+    public void stopRendering(StaticMapView staticMapView) {
+        if (staticMapView != mStaticMapView) {
+            return;
+        }
+        stopRendering();
+    }
+
+    /**
+     * Cancels the current render.
+     */
+    public void stopRendering() {
+        mBusy = false;
+        mStaticMapView = null;
+        mCallback = null;
     }
 }

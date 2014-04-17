@@ -66,9 +66,11 @@ public class StaticMapManager {
 
     public void remove(StaticMapView staticMapView) {
         mQueue.remove(staticMapView);
+        mRenderer.stopRendering(staticMapView);
     }
 
     public void disconnect() {
+        mRenderer.stopRendering();
         mQueue = null;
         mRenderer = null;
         mHandler = null;
