@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.google.android.gms.maps.MapView;
+
 public class StaticMapView extends FrameLayout {
     private ImageView mImageView;
     private StaticMapOptions mOptions;
@@ -43,5 +45,15 @@ public class StaticMapView extends FrameLayout {
     public void setOptions(StaticMapOptions options) {
         mOptions = options;
         mManager.add(this);
+    }
+
+    public StaticMapOptions getOptions() {
+        return mOptions;
+    }
+
+    public void setMapView(MapView mMapView) {
+        // TODO: Push to the back
+        // Resize the map?
+        addView(mMapView, 0);
     }
 }

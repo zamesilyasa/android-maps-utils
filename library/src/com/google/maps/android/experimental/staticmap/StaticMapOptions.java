@@ -4,8 +4,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-// TODO: make this a builder and immutable
+/**
+ * Options for the static map.
+ */
 public class StaticMapOptions {
     private CameraPosition mCameraPosition;
     private ArrayList<MarkerOptions> mMarkers;
@@ -14,11 +18,17 @@ public class StaticMapOptions {
         return mCameraPosition;
     }
 
-    public void setCameraPosition(CameraPosition cameraPosition) {
-        mCameraPosition = cameraPosition;
+    public List<MarkerOptions> getMarkers() {
+        return Collections.unmodifiableList(mMarkers);
     }
 
-    public void addMarker(MarkerOptions markerOptions) {
+    public StaticMapOptions setCameraPosition(CameraPosition cameraPosition) {
+        mCameraPosition = cameraPosition;
+        return this;
+    }
+
+    public StaticMapOptions addMarker(MarkerOptions markerOptions) {
         mMarkers.add(markerOptions);
+        return this;
     }
 }
