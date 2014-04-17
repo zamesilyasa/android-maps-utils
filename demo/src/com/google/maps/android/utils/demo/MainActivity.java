@@ -27,6 +27,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         addDemo("Heatmaps", HeatmapsDemoActivity.class);
         addDemo("Heatmaps with Places API", HeatmapsPlacesDemoActivity.class);
         addDemo("Static Maps", SimpleStaticDemoActivity.class);
+        addDemo("Static Maps - multiple maps", StaticMapDemoActivity.class);
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {
