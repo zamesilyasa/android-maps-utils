@@ -3,6 +3,7 @@ package com.google.maps.android.experimental.staticmap;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -63,6 +64,9 @@ public class StaticMapView extends FrameLayout {
     void setMapView(MapView mMapView) {
         // TODO: Push to the back
         // Resize the map?
+        mMapView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
         addView(mMapView, 0);
     }
 
