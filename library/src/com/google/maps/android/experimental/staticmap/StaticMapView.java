@@ -40,25 +40,33 @@ public class StaticMapView extends FrameLayout {
     }
 
     public void setManager(StaticMapManager manager) {
+        if (mManager != null) {
+            mManager.remove(this);
+        }
         mManager = manager;
+        if (mOptions != null) {
+            mManager.add(this);
+        }
     }
 
     public void setOptions(StaticMapOptions options) {
         mOptions = options;
-        mManager.add(this);
+        if (mManager != null) {
+            mManager.add(this);
+        }
     }
 
     public StaticMapOptions getOptions() {
         return mOptions;
     }
 
-    public void setMapView(MapView mMapView) {
+    void setMapView(MapView mMapView) {
         // TODO: Push to the back
         // Resize the map?
         addView(mMapView, 0);
     }
 
-    public void setBitmap(Bitmap bitmap) {
+    void setBitmap(Bitmap bitmap) {
         mImageView.setImageBitmap(bitmap);
     }
 }
