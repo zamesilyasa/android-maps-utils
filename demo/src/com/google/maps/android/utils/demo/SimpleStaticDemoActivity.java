@@ -41,6 +41,7 @@ public class SimpleStaticDemoActivity extends Activity {
 
     @Override
     protected void onPause() {
+        super.onPause();
         mManager.disconnect();
     }
 }
