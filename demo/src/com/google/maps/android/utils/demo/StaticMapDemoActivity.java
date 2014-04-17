@@ -5,25 +5,36 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.experimental.staticmap.StaticMapManager;
 import com.google.maps.android.utils.demo.model.MapItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StaticMapDemoActivity extends Activity {
+    private StaticMapManager mMapManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.staticmap_demo);
 
         List<MapItem> maps = getMapItems();
+        mMapManager = new StaticMapManager();
+        mMapManager.connect(this);
 
         ListView list = (ListView) findViewById(R.id.map_list_view);
 
         MapItemAdapter adapter = new MapItemAdapter(this, R.layout.map_list_item,
-                maps.toArray(new MapItem[maps.size()]));
+                maps.toArray(new MapItem[maps.size()]), mMapManager);
 
         list.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mMapManager.disconnect();
+        super.onDestroy();
     }
 
     private List<MapItem> getMapItems() {
@@ -36,33 +47,33 @@ public class StaticMapDemoActivity extends Activity {
         perth.zoom = 10;
         maps.add(perth);
 
-//        MapItem brisbane = new MapItem();
-//        brisbane.name = "Brisbane";
-//        brisbane.description = "Brissssvegas";
-//        brisbane.point = new LatLng(-27.4679, 153.0278);
-//        brisbane.zoom = 10;
-//        maps.add(brisbane);
-//
-//        MapItem sydney = new MapItem();
-//        sydney.name = "Sydney";
-//        sydney.description = "Capital city of NSW";
-//        sydney.point = new LatLng(-33.8600, 151.2111);
-//        sydney.zoom = 10;
-//        maps.add(sydney);
-//
-//        MapItem nyc = new MapItem();
-//        nyc.name = "New York City";
-//        nyc.description = "NY, NY";
-//        nyc.point = new LatLng(40.6700, -73.9400);
-//        nyc.zoom = 8;
-//        maps.add(nyc);
-//
-//        MapItem pyramids = new MapItem();
-//        pyramids.name = "Great Pyramid of Giza";
-//        pyramids.description = "Egypt.";
-//        pyramids.point = new LatLng(29.9792, 31.1344);
-//        pyramids.zoom = 15;
-//        maps.add(pyramids);
+        MapItem brisbane = new MapItem();
+        brisbane.name = "Brisbane";
+        brisbane.description = "Brissssvegas";
+        brisbane.point = new LatLng(-27.4679, 153.0278);
+        brisbane.zoom = 10;
+        maps.add(brisbane);
+
+        MapItem sydney = new MapItem();
+        sydney.name = "Sydney";
+        sydney.description = "Capital city of NSW";
+        sydney.point = new LatLng(-33.8600, 151.2111);
+        sydney.zoom = 10;
+        maps.add(sydney);
+
+        MapItem nyc = new MapItem();
+        nyc.name = "New York City";
+        nyc.description = "NY, NY";
+        nyc.point = new LatLng(40.6700, -73.9400);
+        nyc.zoom = 8;
+        maps.add(nyc);
+
+        MapItem pyramids = new MapItem();
+        pyramids.name = "Great Pyramid of Giza";
+        pyramids.description = "Egypt.";
+        pyramids.point = new LatLng(29.9792, 31.1344);
+        pyramids.zoom = 15;
+        maps.add(pyramids);
 
         return maps;
     }
