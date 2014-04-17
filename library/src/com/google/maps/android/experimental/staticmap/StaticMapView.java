@@ -2,6 +2,8 @@ package com.google.maps.android.experimental.staticmap;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -31,13 +33,13 @@ public class StaticMapView extends FrameLayout {
 
     private void init() {
         mImageView = new ImageView(getContext());
-        addView(mImageView, 0);
+        addView(mImageView);
         reset();
     }
 
     public void reset() {
         mOptions = null;
-        // TODO: set the placeholder bitmap for the image view
+        mImageView.setImageDrawable(new ColorDrawable(Color.GRAY));
         if (mManager != null) {
             mManager.remove(this);
         }
@@ -70,11 +72,11 @@ public class StaticMapView extends FrameLayout {
         mMapView.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
-        addView(mMapView, 1);
+        addView(mMapView, 0);
     }
 
     void setBitmap(Bitmap bitmap) {
         mImageView.setImageBitmap(bitmap);
-        removeViewAt(1);
+        removeViewAt(0);
     }
 }
