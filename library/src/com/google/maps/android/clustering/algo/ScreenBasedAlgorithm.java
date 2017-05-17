@@ -28,4 +28,6 @@ import com.google.maps.android.clustering.ClusterItem;
 public interface ScreenBasedAlgorithm<T extends ClusterItem> extends Algorithm<T>, GoogleMap.OnCameraChangeListener {
 
     boolean shouldReclusterOnMapMovement();
+
+    void setShouldReclusterOnMapMovement(boolean shouldReclusterOnMapMovement);
 }

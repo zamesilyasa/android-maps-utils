@@ -41,6 +41,8 @@ public class NonHierarchicalViewBasedAlgorithm<T extends ClusterItem>
 
     private LatLng mMapCenter;
 
+    private boolean shouldReclusterOnMapMovement = true;
+
     public NonHierarchicalViewBasedAlgorithm(int screenWidth, int screenHeight) {
         mViewWidth = screenWidth;
         mViewHeight = screenHeight;
@@ -58,7 +60,7 @@ public class NonHierarchicalViewBasedAlgorithm<T extends ClusterItem>
 
     @Override
     public boolean shouldReclusterOnMapMovement() {
-        return true;
+        return shouldReclusterOnMapMovement;
     }
 
     /**
@@ -70,6 +72,10 @@ public class NonHierarchicalViewBasedAlgorithm<T extends ClusterItem>
     public void updateViewSize(int width, int height) {
         mViewWidth = width;
         mViewHeight = height;
+    }
+
+    public void setShouldReclusterOnMapMovement(final boolean shouldReclusterOnMapMovement) {
+        this.shouldReclusterOnMapMovement = shouldReclusterOnMapMovement;
     }
 
     private Bounds getVisibleBounds(int zoom) {
