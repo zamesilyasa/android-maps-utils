@@ -46,7 +46,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class ClusterManager<T extends ClusterItem> implements
         GoogleMap.OnCameraIdleListener,
         GoogleMap.OnMarkerClickListener,
-        GoogleMap.OnInfoWindowClickListener {
+        GoogleMap.OnInfoWindowClickListener,
+        GoogleMap.OnInfoWindowCloseListener {
 
     private final MarkerManager mMarkerManager;
     private final MarkerManager.Collection mMarkers;
@@ -218,14 +219,23 @@ public class ClusterManager<T extends ClusterItem> implements
 
         // Don't re-compute clusters if the map has just been panned/tilted/rotated.
         } else if (mPreviousCameraPosition == null || mPreviousCameraPosition.zoom != mMap.getCameraPosition().zoom) {
-            mPreviousCameraPosition = mMap.getCameraPosition();
             cluster();
         }
+        mPreviousCameraPosition = mMap.getCameraPosition();
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        return getMarkerManager().onMarkerClick(marker);
+        final boolean markerClick = getMarkerManager().onMarkerClick(marker);
+        if (!markerClick) {
+            mAlgorithm.setShouldReclusterOnMapMovement(false);
+        }
+        return markerClick;
+    }
+
+    @Override
+    public void onInfoWindowClose(final Marker marker) {
+        mAlgorithm.setShouldReclusterOnMapMovement(true);
     }
 
     @Override

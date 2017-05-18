@@ -36,6 +36,10 @@ public class ScreenBasedAlgorithmAdapter<T extends ClusterItem> implements Scree
         return false;
     }
 
+    public void setShouldReclusterOnMapMovement(final boolean shouldReclusterOnMapMovement) {
+        // always do not recluster
+    }
+
     @Override
     public void addItem(T item) {
         mAlgorithm.addItem(item);
