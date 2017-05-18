@@ -226,8 +226,11 @@ public class ClusterManager<T extends ClusterItem> implements
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        mAlgorithm.setShouldReclusterOnMapMovement(false);
-        return getMarkerManager().onMarkerClick(marker);
+        final boolean markerClick = getMarkerManager().onMarkerClick(marker);
+        if (!markerClick) {
+            mAlgorithm.setShouldReclusterOnMapMovement(false);
+        }
+        return markerClick;
     }
 
     @Override
